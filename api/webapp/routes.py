@@ -1,5 +1,6 @@
 from webapp import app
 from flask import jsonify
+from random import randint
 
 @app.route("/")
 def index():
@@ -7,9 +8,20 @@ def index():
 
 @app.route('/test')
 def test() :
-    d = {}
+    response = {}
+    functions = ["scrollUp","scrollDown","scrollLeft","scrollRight","zoomIn","zoomOut"]
 
-    d['hello'] = 'world'
-    d['plis'] = 'to work'
+    for i in functions :
+        response[i] = 0
 
-    return jsonify(d)
+    ind  = randint(0,5)
+    response[functions[ind]] = 1
+
+    return jsonify(response)
+
+@app.route('/test1')
+def test1():
+    response = {}
+    response['FUCK'] = "CHALO"
+
+    return jsonify(response)

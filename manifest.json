@@ -8,6 +8,7 @@
   },
   "permissions" : [
     "activeTab",
-    "storage"
+    "storage",
+    "http://localhost:5000/"
   ]
 }
