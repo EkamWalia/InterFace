@@ -123,7 +123,7 @@ window.onload = function() {
   }
 
   ajax.open("POST", "http://localhost:5000/image", false);
-  ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  ajax.setRequestHeader("enctype", "multipart/form-data");
   ajax.onreadystatechange = function() {
     console.log(ajax.responseText);
   }
