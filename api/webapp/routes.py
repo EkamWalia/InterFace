@@ -17,6 +17,7 @@ def test() :
     ind  = randint(0,5)
     response[functions[ind]] = 1
 
+    #response['scrollUp'] = 1
     return jsonify(response)
 
 @app.route('/test1')
@@ -25,3 +26,7 @@ def test1():
     response['FUCK'] = "CHALO"
 
     return jsonify(response)
+
+@app.route('/image')
+def image():
+    return "Abhi tk to theek hai"

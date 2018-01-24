@@ -13,7 +13,7 @@ window.onload = function() {
         // new flag statuses
         console.log(data)
         if(data.scrollUp === 1) {
-          var script = "window.scrollBy(0,-100);" ;
+          var script = 'window.scrollBy(0,-100);';
           chrome.tabs.executeScript({
             code : script
           });
@@ -77,5 +77,40 @@ window.onload = function() {
           });
         }
       });
+  });
+
+
+  var video = document.getElementById('videoBox');
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+
+  function snapshot() {
+  var localMediaStream = null;
+
+    if(localMediaStream) {
+      ctx.drawImage(video,0,0);
+    }
+  }
+
+  video.addEventListener('click' , snapshot);
+
+  navigator.webkitGetUserMedia({video : true}  ,function(stream) {
+    video.src = window.URL.createObjectURL(stream);
+    localMediaStream = stream;
+  },(err) => {console.log(err)});
+
+  document.getElementById('btn').addEventListener('click' , function() {
+    var imageURL = canvas.toDataURL();
+    $('div').html("World");
+    $.ajax({
+        type : "POST",
+        url : "http://localhost:5000/image",
+        crossDomain : true,
+        data : {
+          image : imageURL
+        }
+    }).done(function(){
+      console.log("Saved")
+    });
   });
 }

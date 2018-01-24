@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      canvas {
+      }
+    </style>
+    <script type="text/javascript" src="jquery-3.3.1.slim.min.js"></script>
+  </head>
+  <body>
+      <div class="">
+        Hello
+      </div>
+      <video  id="videoBox" autoplay></video>
+      <canvas id="canvas" width="640" height="480" display="hidden"></canvas>
+      <button type="button" id="btn">Upload</button>
+      <script type="text/javascript">
+        var video = document.getElementById('videoBox');
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        function snapshot() {
+        var localMediaStream = null;
+
+          if(localMediaStream) {
+            ctx.drawImage(video,0,0);
+          }
+        }
+
+        video.addEventListener('click' , snapshot);
+
+        navigator.webkitGetUserMedia({video : true}  ,function(stream) {
+          video.src = window.URL.createObjectURL(stream);
+          localMediaStream = stream;
+        },(err) => {console.log(err)});
+
+        document.getElementById('btn').addEventListener('click' , function() {
+          var imageURL = canvas.toDataURL();
+          $('div').html("World");
+          $.ajax({
+              type : "POST",
+              url : "http://localhost:5000/image",
+              crossDomain : true,
+              data : {
+                image : imageURL
+              }
+          }).done(function(){
+            console.log("Saved")
+          });
+        });
+      </script>
+  </body>
+</html>
