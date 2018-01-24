@@ -84,12 +84,13 @@ window.onload = function() {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var localMediaStream = null;
+  var img = document.getElementById('photo');
 
   function snapshot() {
-
     console.log("IN snapshot");
     if(localMediaStream) {
       ctx.drawImage(video,0,0);
+      img.src = canvas.toDataURL();
       console.log("Image Captured");
     }
   }
@@ -102,31 +103,16 @@ window.onload = function() {
 
   document.getElementById('btn').addEventListener('click' , function() {
     snapshot();
-    var imageURL = canvas.toDataURL();
-  /*  $.ajax({
-        type : "POST",
-        url : "http://localhost:5000/image",
-        data : {
-          image : imageURL
-        }
-    }).done(function(){
-      console.log("Saved")
-    });*/
-
-    var xmlHttpReq = false;
-
-  if (window.XMLHttpRequest) {
-    ajax = new XMLHttpRequest();
-  }
-  else if (window.ActiveXObject) {
-    ajax = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  ajax.open("POST", "http://localhost:5000/image", false);
-  ajax.setRequestHeader("enctype", "multipart/form-data");
-  ajax.onreadystatechange = function() {
-    console.log(ajax.responseText);
-  }
-  ajax.send("photo" + imageURL);
+    var form = new FormData($("#uploadForm")[0]);
+    $.ajax({
+        url: "http://localhost:5000/image",
+        method: "POST",
+        dataType: 'json',
+        data: form,
+        processData: false,
+        contentType: false,
+        success: function(result){console.log("SUCCESS :",result)},
+        error: function(er){console.log("ERROR :",er)}
+      });
   });
 }

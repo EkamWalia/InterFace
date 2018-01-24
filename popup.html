@@ -20,26 +20,10 @@
   </head>
   <body>
 
-    <!-- @Todo : Remove these button -->
-    <!-- remove for now
-    <button type="button" id="up">Up</button>
-    <button type="button" id="down">Down</button>
-    <button type="button" id="left">Left</button>
-    <button type="button" id="right">Right</button>
-    <button type="button" id="zoomIn">Zoom In</button>
-    <button type="button" id="zoomOut">Zoom Out</button>
-    -->
-
-    <!-- @Todo : Remove this AJAX call button -->
-    <!-- Temporary AJAX call button -->
-    <button type="button" id="ajaxBtn">Call</button>
-
-    <!-- @Todo : Remove JSON display div -->
-    <!-- Temporary JSON disply div -->
-    <div id="root"></div>
-    <div class="">
-      Hello
-    </div>
+    <form id="uploadForm" enctype="multipart/form-data" action="http://localhost:5000/image" method="post" name="uploadForm" novalidate>
+      <input type="file" name="photo" id="photo" />
+      <input type="submit" value="submit" id="uploadImage" />
+  </form>
     <video  id="videoBox" autoplay></video>
     <canvas id="canvas" width="640" height="480"></canvas><br><br>
     <button type="button" id="btn">Upload</button>
