@@ -29,6 +29,10 @@ def test() :
 @app.route('/image',methods = ["GET",'POST'])
 def image():
     if request.method == 'POST':
-        print(request.files)
-        imageFile = photos.save(request.files['photo'])
+        print(request)
+        convert_and_save(request['data']['image64'])
         return "Abhi tk to theek hai"
+
+def convert_and_save(b64_string):
+    with open("imageToSave.png", "wb") as fh:
+        fh.write(base64.decodebytes(b64_string.encode()))

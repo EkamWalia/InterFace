@@ -103,16 +103,15 @@ window.onload = function() {
 
   document.getElementById('btn').addEventListener('click' , function() {
     snapshot();
-    var form = new FormData($("#uploadForm")[0]);
+    var dataURL = canvas.toDataURL();
+    
     $.ajax({
-        url: "http://localhost:5000/image",
-        method: "POST",
-        dataType: 'json',
-        data: form,
-        processData: false,
-        contentType: false,
-        success: function(result){console.log("SUCCESS :",result)},
-        error: function(er){console.log("ERROR :",er)}
-      });
+      type: "POST",
+      url: "http://localhost:5000/image",
+      data: {
+        image64: dataURL
+      }
+    }).done(function(o) {
+      console.log('saved');
   });
 }
