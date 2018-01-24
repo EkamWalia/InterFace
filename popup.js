@@ -83,16 +83,17 @@ window.onload = function() {
   var video = document.getElementById('videoBox');
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
-
-  function snapshot() {
   var localMediaStream = null;
 
+  function snapshot() {
+  
+    console.log("IN snapshot");
     if(localMediaStream) {
       ctx.drawImage(video,0,0);
+      console.log("Image Captured");
     }
   }
 
-  video.addEventListener('click' , snapshot);
 
   navigator.webkitGetUserMedia({video : true}  ,function(stream) {
     video.src = window.URL.createObjectURL(stream);
@@ -100,6 +101,7 @@ window.onload = function() {
   },(err) => {console.log(err)});
 
   document.getElementById('btn').addEventListener('click' , function() {
+    snapshot();
     var imageURL = canvas.toDataURL();
     $('div').html("World");
     $.ajax({

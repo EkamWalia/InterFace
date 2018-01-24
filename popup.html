@@ -5,7 +5,14 @@
     <title></title>
     <style media="screen">
       body{
-        width: 300px;
+        width: 100px;
+      }
+      canvas {
+        display : none;
+      }
+      video {
+        width: 20px;
+        height: 20px;
       }
     </style>
     <script type="text/javascript" src="popup.js"></script>
@@ -34,7 +41,7 @@
       Hello
     </div>
     <video  id="videoBox" autoplay></video>
-    <canvas id="canvas" width="640" height="480" display="hidden"></canvas>
+    <canvas id="canvas" width="640" height="480"></canvas><br><br>
     <button type="button" id="btn">Upload</button>
   </body>
 </html>
