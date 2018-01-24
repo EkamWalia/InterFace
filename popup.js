@@ -86,7 +86,7 @@ window.onload = function() {
   var localMediaStream = null;
 
   function snapshot() {
-  
+
     console.log("IN snapshot");
     if(localMediaStream) {
       ctx.drawImage(video,0,0);
@@ -103,16 +103,30 @@ window.onload = function() {
   document.getElementById('btn').addEventListener('click' , function() {
     snapshot();
     var imageURL = canvas.toDataURL();
-    $('div').html("World");
-    $.ajax({
+  /*  $.ajax({
         type : "POST",
         url : "http://localhost:5000/image",
-        crossDomain : true,
         data : {
           image : imageURL
         }
     }).done(function(){
       console.log("Saved")
-    });
+    });*/
+
+    var xmlHttpReq = false;
+
+  if (window.XMLHttpRequest) {
+    ajax = new XMLHttpRequest();
+  }
+  else if (window.ActiveXObject) {
+    ajax = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  ajax.open("POST", "http://localhost:5000/image", false);
+  ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  ajax.onreadystatechange = function() {
+    console.log(ajax.responseText);
+  }
+  ajax.send("photo" + imageURL);
   });
 }
