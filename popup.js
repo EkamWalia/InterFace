@@ -1,5 +1,5 @@
 window.onload = function() {
-
+/*
   var ajaxBtn = document.getElementById('ajaxBtn');
   ajaxBtn.addEventListener('click' , function() {
 
@@ -79,18 +79,16 @@ window.onload = function() {
       });
   });
 
-
+*/
   var video = document.getElementById('videoBox');
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var localMediaStream = null;
-  var img = document.getElementById('photo');
 
   function snapshot() {
     console.log("IN snapshot");
     if(localMediaStream) {
       ctx.drawImage(video,0,0);
-      img.src = canvas.toDataURL();
       console.log("Image Captured");
     }
   }
@@ -108,10 +106,10 @@ window.onload = function() {
     $.ajax({
       type: "POST",
       url: "http://localhost:5000/image",
+      contentType: "application/json",
       data: {
         image64: dataURL
-      }
-    }).done(function(o) {
-      console.log('saved');
+      } 
+    }).done(function(o) {console.log('saved');});
   });
 }

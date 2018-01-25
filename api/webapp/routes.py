@@ -1,12 +1,6 @@
 from webapp import app
 from flask import jsonify,request
 from random import randint
-from flask.ext.uploads import UploadSet, configure_uploads, IMAGES
-
-photos = UploadSet('photos', IMAGES)
-
-app.config['UPLOADED_PHOTOS_DEST'] = 'img'
-configure_uploads(app, photos)
 
 @app.route("/")
 def index():
@@ -26,11 +20,12 @@ def test() :
     #response['scrollUp'] = 1
     return jsonify(response)
 
-@app.route('/image',methods = ["GET",'POST'])
+@app.route('/image', methods = ["GET",'POST'])
 def image():
     if request.method == 'POST':
-        print(request)
-        convert_and_save(request['data']['image64'])
+        content = request.get_json()
+        print(content)
+        convert_and_save(content['data']['image64'])
         return "Abhi tk to theek hai"
 
 def convert_and_save(b64_string):
